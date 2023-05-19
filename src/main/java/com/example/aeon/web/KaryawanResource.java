@@ -17,8 +17,8 @@ public class KaryawanResource {
     private KaryawanService karyawanService;
 
     @PostMapping("/v1/karyawan")
-    public ResponseEntity<Void> createNewKaryawan(@RequestBody KayawanCreateRequestDTO dto) throws URISyntaxException {
+    public ResponseEntity<String> createNewKaryawan(@RequestBody KayawanCreateRequestDTO dto) throws URISyntaxException {
         karyawanService.createNewKaryawan(dto);
-        return ResponseEntity.created(new URI("/v1/karyawan")).build();
+        return ResponseEntity.created(new URI("/v1/karyawan")).body("Berhasil Menambahkan Karyawan");
     }
 }
