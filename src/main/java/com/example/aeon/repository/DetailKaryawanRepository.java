@@ -1,9 +1,9 @@
 package com.example.aeon.repository;
 
-import com.example.aeon.domain.Karyawan;
+import com.example.aeon.domain.DetailKaryawan;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface KaryawanRepository extends JpaRepository<Karyawan, Long> {
+public interface DetailKaryawanRepository extends JpaRepository<DetailKaryawan, Long> {
 }
