@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DetailKaryawanRepository extends JpaRepository<DetailKaryawan, Long> {
+    public DetailKaryawan findByKaryawanId(Long karyawanId);
 }
