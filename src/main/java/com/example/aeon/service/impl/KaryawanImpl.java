@@ -45,6 +45,9 @@ public class KaryawanImpl implements KaryawanService {
             DetailKaryawan dataDetilKaryawan = new DetailKaryawan();
             dataDetilKaryawan.setNik(karyawan.getDetailKaryawan().getNik());
             dataDetilKaryawan.setNpwp(karyawan.getDetailKaryawan().getNpwp());
+
+            dataDetilKaryawan.setKaryawan(dataKaryawanBaru);
+
             detailKaryawanRepository.save(dataDetilKaryawan);
 
             dataKaryawanBaru.setDetailKaryawan(dataDetilKaryawan);
@@ -52,7 +55,44 @@ public class KaryawanImpl implements KaryawanService {
             return myResponse.OkRequest(dataKaryawanBaru, "Karyawan berhasil ditambahkan");
 
         } catch (Exception e) {
-            return myResponse.ErrorRequest(karyawan);
+            return myResponse.ErrorRequest(e);
+        }
+    }
+
+    @Override
+    public Map UpdateKaryawanAndDetail(Karyawan karyawan) {
+        try {
+
+            if (karyawan.getNama() == null) {
+                return myResponse.BadRequest("Tolong masukan nama karyawan");
+            }
+            if (karyawan.getNama().isEmpty()) {
+                return myResponse.BadRequest("Tolong masukan nama karyawan dengan benar");
+            }
+            if (karyawan.getDetailKaryawan() == null) {
+                return myResponse.BadRequest("Tolong masukan Detail karyawan dengan benar");
+            }
+            if (karyawanRepository.getById(karyawan.getId()) == null) {
+                return myResponse.BadRequest("Id Karyawan tidak ditemukan");
+            }
+            if (karyawan.getDetailKaryawan().getNik() == null) {
+                return myResponse.BadRequest("Tolong lengkapi NIK karyawan");
+            }
+            Karyawan dataKaryawan = karyawanRepository.getById(karyawan.getId());
+            dataKaryawan.setNama(karyawan.getNama());
+            dataKaryawan.setDob(karyawan.getDob());
+            dataKaryawan.setStatus(karyawan.getStatus());
+            dataKaryawan.setJenisKelamin(karyawan.getJenisKelamin());
+            dataKaryawan.setAlamat(karyawan.getAlamat());
+
+            dataKaryawan.getDetailKaryawan().setNpwp(karyawan.getDetailKaryawan().getNpwp());
+            dataKaryawan.getDetailKaryawan().setNik(karyawan.getDetailKaryawan().getNik());
+
+            Karyawan updateDataKaryawan = karyawanRepository.save(dataKaryawan);
+            return myResponse.OkRequest(updateDataKaryawan, "Data Karyawan berhasil diperbaharui");
+
+        } catch (Exception e) {
+            return myResponse.ErrorRequest(e);
         }
     }
 }
