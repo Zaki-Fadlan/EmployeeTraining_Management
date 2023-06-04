@@ -95,4 +95,5 @@ public class KaryawanImpl implements KaryawanService {
             return myResponse.ErrorRequest(e);
         }
     }
+
 }

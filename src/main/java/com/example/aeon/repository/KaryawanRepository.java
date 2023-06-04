@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface KaryawanRepository extends PagingAndSortingRepository<Karyawan, Long> {
     @Query("SELECT k from Karyawan k WHERE k.id = :id")
     Karyawan getById(@Param("id") Long myId);
+
 }
